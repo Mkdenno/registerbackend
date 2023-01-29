@@ -2,8 +2,8 @@ class UsersController < ApplicationController
     skip_before_action :verify_authenticity_token
 
 
-    def profile
-        render json: { user: UserSerializer.new(current_user) }, status: :accepted
+      def profile
+        render json: user, status: :created
       end
 
     def create
@@ -11,10 +11,12 @@ class UsersController < ApplicationController
         if user.valid?
             session[:user_id] = user.id
             render json: user, status: :created
+
         else
             render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
         
         end
+    
 
     end
 
